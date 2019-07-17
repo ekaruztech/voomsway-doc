@@ -19,3 +19,13 @@
   align-items: center;
   justify-content: center;
 }
+
+.help-block {
+  padding-left: 10px;
+  font-size: 13px;
+  margin-top: -15px;
+}
+
+.help-block {
+  color: #f44336;
+}
