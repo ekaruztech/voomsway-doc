@@ -1,9 +1,9 @@
-import Login from 'views/login';
+import LoginForm from 'views/login';
 
 export default {
   title: 'Login',
-  component: Login,
-  url: '/login',
+  component: LoginForm,
+  url: '/admin/login',
   exact: true,
   requirePermission: false,
 };
