@@ -1,13 +1,18 @@
-import React from 'react';
+import React, { Fragment } from 'react';
 import 'styles/css/App.css';
 import Main from 'components/main';
+import Header from 'components/navbar';
 
 function App() {
   return (
-    <div className="App">
-      <h3>Voomsway Doc</h3>
-      <Main />
-    </div>
+    <Fragment>
+      <header className="header">
+        <Header />
+      </header>
+      <div className="main">
+        <Main />
+      </div>
+    </Fragment>
   );
 }
 
