@@ -11,14 +11,13 @@ const Main = () => (
           component: Component,
           url,
           exact,
-          requirePermission,
         }) => {
           return (
             <Route
               key={url}
               path={url}
               exact={exact}
-              render={(props) => <Component {...props} title={title} requirePermission={requirePermission} />}
+              render={(props) => <Component {...props} title={title} />}
             />
           )
         })

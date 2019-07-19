@@ -1,8 +1,8 @@
 import { combineReducers } from 'redux';
-import login from 'store/reducers/loginReducer';
+import test from 'store/reducers/testReducer';
 
 const appReducer = combineReducers({
-  login,
+  test,
 });
 
 const rootReducer = (state, action) => {
