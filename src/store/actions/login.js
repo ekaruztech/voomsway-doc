@@ -1,14 +1,5 @@
 import API from 'services/api';
-import axios from 'axios';
 import jwt from 'jsonwebtoken';
-
-export default function setAuthorizationToken(token) {
-  if (token) {
-    axios.defaults.headers.common.Authorization = `Bearer ${token}`;
-  } else {
-    delete axios.defaults.headers.common.Authorization;
-  }
-}
 
 export const USER_LOGIN_LOADING = 'USER_LOGIN_LOADING'
 export function userLoginLoading() {
@@ -41,11 +32,11 @@ export function userLoginRequest(userData, history) {
       .then(
         (response) => { 
           const { token } = response.data._meta;
+          const isAdmin = response.data.data.is_admin;
 
           localStorage.setItem('voomToken', token);
-          setAuthorizationToken(token);
-          dispatch(userLoginSuccess(jwt.decode(token)))
-          history.push('/');
+          dispatch(userLoginSuccess({ ...jwt.decode(token), isAdmin }))
+          history.push('/admin');
         },
 
 	      (error) => {
@@ -54,5 +45,25 @@ export function userLoginRequest(userData, history) {
           dispatch(userLoginFailure({ message, messages }))
         }
       );
+  }
+}
+
+export const SET_CURRENT_USER = 'SET_CURRENT_USER';
+export function getCurrentUser(token) {
+  const { userId } = jwt.decode(token);
+
+  console.log('I ran ==> action')
+  return (dispatch) => {
+    return API.get(`/users/${userId}`)
+      .then(
+        (response) => {
+          const isAdmin = response.data.data.is_admin;
+
+          dispatch({
+            type: SET_CURRENT_USER,
+            user: { ...jwt.decode(token), isAdmin }
+          });
+        }
+      )
   }
 }
