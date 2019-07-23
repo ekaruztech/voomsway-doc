@@ -1,3 +1,7 @@
+.main {
+  padding: 1em;
+}
+
 .login-container {
   height: 80vh;
 }
@@ -28,4 +32,21 @@
 
 .help-block {
   color: #f44336;
+}
+
+.admin-dashboard-title {
+  display: inline-block;
+}
+
+.inline-block {
+  display: inline-block;
+}
+
+.add-module-btn {
+  padding-top: 4px;
+  display: inline-block;
+}
+
+.form-container {
+  padding-top: 1em;
 }
