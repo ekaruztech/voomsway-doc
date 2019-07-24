@@ -41,7 +41,6 @@ export function userLoginRequest(userData, history) {
 
 	      (error) => {
           const { message, messages } = error.response.data._meta.error;
-          console.log(message, messages)
           dispatch(userLoginFailure({ message, messages }))
         }
       );
@@ -52,7 +51,6 @@ export const SET_CURRENT_USER = 'SET_CURRENT_USER';
 export function getCurrentUser(token) {
   const { userId } = jwt.decode(token);
 
-  console.log('I ran ==> action')
   return (dispatch) => {
     return API.get(`/users/${userId}`)
       .then(

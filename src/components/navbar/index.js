@@ -19,7 +19,7 @@ const Header = ({ location }) => {
         </Navbar.Brand>
 
         {
-          location.pathname === '/admin' &&
+          location.pathname.includes("/admin") &&
           <Fragment>
             <Navbar.Toggle aria-controls="responsive-navbar-nav" />
           
