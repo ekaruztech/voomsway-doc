@@ -1,4 +1,4 @@
-import NewModule from 'views/new-module';
+import NewModule from 'views/modules/new-module';
 
 export default {
   title: 'Document New Module',

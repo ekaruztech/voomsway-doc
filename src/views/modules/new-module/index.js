@@ -1,10 +1,12 @@
 import React, { useState } from 'react';
 import ReactMde from 'react-mde';
 import Showdown from "showdown";
+import { withRouter } from 'react-router-dom';
 import { Form, Button } from 'react-bootstrap';
 import 'react-mde/lib/styles/css/react-mde-all.css';
+import { useModule } from 'views/modules/moduleHooks';
 
-const NewModule = ({title}) => {
+const NewModule = ({ title, history }) => {
   const [value, setValue] = useState('**Hello World!**');
   const [selectedTab, setSelectedTab] = useState("write");
   const [moduleTitle, setModuleTitle] = useState('');
@@ -12,6 +14,8 @@ const NewModule = ({title}) => {
   const [subTitle, setSubTitle] = useState('');
   const [subSectionValue, setSubSctionValue] = useState('');
   const [subSelectedTab, setSubSelectedTab] = useState("write");
+
+  const { createModule } = useModule();
 
   const converter = new Showdown.Converter({
     tables: true,
@@ -37,7 +41,7 @@ const NewModule = ({title}) => {
       title: subTitle,
       body: subSectionValue,
     };
-    console.log({ mainModule, subSection })
+    createModule({ mainModule, subSection }, history);
   }
 
   const toggleCheckBox = (event) => {
@@ -168,4 +172,4 @@ const NewModule = ({title}) => {
   );
 };
 
-export default NewModule;
+export default withRouter(NewModule);
