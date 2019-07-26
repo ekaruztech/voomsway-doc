@@ -2,6 +2,7 @@ import {
   MODULE_CREATION_LOADING,
   MODULE_CREATION_SUCCESS,
   SECTION_CREATION_SUCCESS,
+  FETCH_MODULES_SUCCESS,
 } from 'store/actions/modules';
 
 const initialState = {
@@ -50,6 +51,16 @@ export default (state = initialState, action) => {
           return module;
         }),
       };
+
+    case FETCH_MODULES_SUCCESS:
+      return {
+        ...state,
+        isLoading: false,
+        modules: [
+          ...state.modules,
+          ...action.payload
+        ]
+      }
   
     default:
       return state;

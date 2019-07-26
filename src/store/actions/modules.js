@@ -78,3 +78,20 @@ export function createSectionRequest(payload) {
       )
   }
 }
+
+export const FETCH_MODULES_SUCCESS = 'FETCH_MODULES_SUCCESS';
+export function fetchModules() {
+  return (dispatch) => {
+    return API.get('/modules')
+    .then(
+      (response) => { 
+        const payload = response.data.data;
+        console.log(response.data.data)
+        dispatch({
+          type: FETCH_MODULES_SUCCESS,
+          payload,
+        })
+      }
+    )
+  }
+}

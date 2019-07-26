@@ -2,53 +2,12 @@ import React from 'react';
 import { withRouter, Link } from 'react-router-dom';
 import  {isLoggedIn } from 'services/isLoggedIn';
 import { Table, Badge, Button } from 'react-bootstrap';
-
-
-const DocList = () => (
-  <Table striped bordered hover responsive>
-    <thead>
-      <tr>
-        <th>#</th>
-        <th>Module</th>
-        <th>Last Edited</th>
-        <th>View | Edit</th>
-      </tr>
-    </thead>
-    <tbody>
-      <tr>
-        <td>1</td>
-        <td>Authentication</td>
-        <td><Badge variant="dark">07/07/2019</Badge> - elshady@gmail.com</td>
-        <td>
-          <Link to="#">View    </Link>
-          <Link to="#">Edit</Link>
-        </td>
-      </tr>
-      <tr>
-        <td>2</td>
-        <td>Account</td>
-        <td><Badge variant="dark">07/07/2019</Badge> - mary@gmail.com</td>
-        <td>
-          <Link to="#">View    </Link>
-          <Link to="#">Edit</Link>
-        </td>
-      </tr>
-      <tr>
-        <td>3</td>
-        <td>Staff</td>
-        <td><Badge variant="dark">07/07/2019</Badge> - mary@gmail.com</td>
-        <td>
-          <Link to="#">View    </Link>
-          <Link to="#">Edit</Link>
-        </td>
-      </tr>
-    </tbody>
-  </Table>
-);
+import { useModule } from 'views/modules/moduleHooks';
 
 
 const AdminDashboard = ({ title, requirePermission, history }) => {
   const isAuthorized = requirePermission && isLoggedIn();
+  const { modules } = useModule();
   
   return (
     <>  
@@ -63,7 +22,35 @@ const AdminDashboard = ({ title, requirePermission, history }) => {
                 Add Module
               </Button>
             </div>
-            <DocList />
+            <Table striped bordered hover responsive>
+              <thead>
+                <tr>
+                  <th>#</th>
+                  <th>Module</th>
+                  <th>Last Edited</th>
+                  <th>View | Edit</th>
+                </tr>
+              </thead>
+              <tbody>           
+                {
+                  modules.map((module, index) => (
+                    <tr>
+                      <td>{index + 1}</td>
+                      <td>{module.title}</td>
+                      <td>
+                        <Badge variant="dark">
+                          { new Date(module.updatedAt).toISOString().split('T')[0] }
+                        </Badge> - elshady@gmail.com
+                      </td>
+                      <td>
+                        <Link to={`/admin/modules/${module._id}`}>View    </Link>
+                        <Link to="#">Edit</Link>
+                      </td>
+                    </tr>
+                  ))
+                }
+              </tbody>
+            </Table>
           </>
         :
           history.push('/admin/login')}

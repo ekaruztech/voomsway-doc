@@ -9,5 +9,7 @@ export const useModule = () => {
     [dispatch]
   );
 
-  return { createModule };
+  const modules = useSelector(state => state.allModules.modules);
+
+  return { createModule, modules };
 };
