@@ -24,23 +24,17 @@ export function moduleCreationFailure(error) {
 }
 
 export function createModuleRequest(payload, history) {
-  const { mainModule, subSection } = payload;
+  const { mainModule } = payload;
   return (dispatch) => {
     dispatch(moduleCreationLoading());
 
     return API.post('/modules', mainModule)
       .then(
         (response) => { 
-          const { _id, title, body } = response.data.data;
+          const { active, _id, title, body, createdAt, updatedAt } = response.data.data;
 
-          dispatch(moduleCreationSuccess({ _id, title, body }));
-
-          if (subSection.title && subSection.body) {
-            dispatch(createSectionRequest({ ...subSection, module: _id }));
-            history.push('/admin');
-          } else {
-            history.push('/admin');
-          }
+          dispatch(moduleCreationSuccess({ active, _id, title, body, createdAt, updatedAt }));
+          history.push('/admin');
         },
 
 	      (error) => {

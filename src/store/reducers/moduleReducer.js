@@ -23,9 +23,12 @@ export default (state = initialState, action) => {
         ...state,
         isLoading: false,
         modules: [...state.modules, {
+          active: action.moduleData.active,
           id: action.moduleData._id,
           title: action.moduleData.title,
           body: action.moduleData.body,
+          createdAt: action.moduleData.createdAt,
+          updatedAt: action.moduleData.updatedAt,
           sections: []
         }]
       };

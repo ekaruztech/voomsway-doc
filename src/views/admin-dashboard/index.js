@@ -28,13 +28,14 @@ const AdminDashboard = ({ title, requirePermission, history }) => {
                   <th>#</th>
                   <th>Module</th>
                   <th>Last Edited</th>
+                  <th>Active</th>         
                   <th>View | Edit</th>
                 </tr>
               </thead>
               <tbody>           
                 {
                   modules.map((module, index) => (
-                    <tr>
+                    <tr key={module._id}>
                       <td>{index + 1}</td>
                       <td>{module.title}</td>
                       <td>
@@ -42,6 +43,7 @@ const AdminDashboard = ({ title, requirePermission, history }) => {
                           { new Date(module.updatedAt).toISOString().split('T')[0] }
                         </Badge> - elshady@gmail.com
                       </td>
+                      <td>{module.active ? 'True' : 'False'}</td>
                       <td>
                         <Link to={`/admin/modules/${module._id}`}>View    </Link>
                         <Link to="#">Edit</Link>
