@@ -53,16 +53,19 @@ export function sectionCreationSuccess(sectionData) {
   };
 }
 
-export function createSectionRequest(payload) {
+export function createSectionRequest(payload, history) {
+  const { subSection } = payload;
+
   return (dispatch) => {
     // dispatch(sectionCreationLoading());
 
-    return API.post('/sections', payload)
+    return API.post('/sections', subSection)
       .then(
         (response) => { 
-          const { _id, title, body, module } = response.data.data;
+          const { active, _id, title, body, module, createdAt, updatedAt } = response.data.data;
 
-          dispatch(sectionCreationSuccess({ _id, title, body, module }))
+          dispatch(sectionCreationSuccess({ active, _id, title, body, module, createdAt, updatedAt }))
+          history.push('/admin');
         },
 
 	      (error) => {
@@ -80,7 +83,6 @@ export function fetchModules() {
     .then(
       (response) => { 
         const payload = response.data.data;
-        console.log(response.data.data)
         dispatch({
           type: FETCH_MODULES_SUCCESS,
           payload,

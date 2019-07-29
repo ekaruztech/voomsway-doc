@@ -29,7 +29,7 @@ const AdminDashboard = ({ title, requirePermission, history }) => {
                   <th>Module</th>
                   <th>Last Edited</th>
                   <th>Active</th>         
-                  <th>View | Edit</th>
+                  <th>Action</th>
                 </tr>
               </thead>
               <tbody>           
@@ -45,8 +45,9 @@ const AdminDashboard = ({ title, requirePermission, history }) => {
                       </td>
                       <td>{module.active ? 'True' : 'False'}</td>
                       <td>
-                        <Link to={`/admin/modules/${module._id}`}>View    </Link>
-                        <Link to="#">Edit</Link>
+                        <Link to={`/admin/modules/${module._id}/view`}>View</Link>
+                        <Link to={`/admin/modules/${module._id}/edit`}>Edit</Link>
+                        <Link to={`/admin/modules/${module._id}/section`}>Add Section</Link>
                       </td>
                     </tr>
                   ))

@@ -1,10 +1,10 @@
 import { combineReducers } from 'redux';
 import login from 'store/reducers/loginReducer';
-import module from 'store/reducers/moduleReducer';
+import modules from 'store/reducers/modules';
 
 const appReducer = combineReducers({
   login,
-  allModules: module,
+  allModules: modules,
 });
 
 const rootReducer = (state, action) => {

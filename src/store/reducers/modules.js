@@ -44,9 +44,13 @@ export default (state = initialState, action) => {
               sections:[
                 ...module.sections,
                 {
+                  active: action.sectionData.active,
                   id: action.sectionData._id,
                   title: action.sectionData.title,
-                  body: action.sectionData.body
+                  body: action.sectionData.body,
+                  module: action.sectionData.module,
+                  createdAt: action.sectionData.createdAt,
+                  updatedAt: action.sectionData.updatedAt,
                 }
               ] 
             }

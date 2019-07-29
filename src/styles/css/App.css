@@ -50,3 +50,7 @@
 .form-container {
   padding-top: 1em;
 }
+
+td > a {
+  padding-right: 1em;
+}
