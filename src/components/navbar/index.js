@@ -9,7 +9,7 @@ const Header = ({ location }) => {
 
   return (
     <Fragment>
-      <Navbar collapseOnSelect expand="lg" bg="dark" variant="dark">
+      <Navbar collapseOnSelect expand="lg" bg="dark" variant="dark" fixed="top">
         <Navbar.Brand href="/" fixed="top">
           <img
             src="https://voomsway.com/wp-content/uploads/2019/06/logo_alt.svg"

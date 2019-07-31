@@ -68,10 +68,7 @@ export function createSectionRequest(payload, history) {
           history.push('/admin');
         },
 
-	      (error) => {
-          const { message, messages } = error.response.data._meta.error;
-          // dispatch(sectionCreationFailure({ message, messages }))
-        }
+	      (error) => {}
       )
   }
 }
