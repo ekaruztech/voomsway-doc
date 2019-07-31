@@ -1,8 +1,12 @@
 import { useCallback, useEffect, useReducer } from 'react';
 import { useDispatch, useSelector, } from 'react-redux';
-import { createModuleRequest, createSectionRequest } from 'store/actions/modules';
 import API from 'services/api';
 import activeModuleReducer from 'store/reducers/activeModule';
+import { 
+  createModuleRequest, 
+  createSectionRequest, 
+  editModuleRequest,
+} from 'store/actions/modules';
 
 
 export const useModule = () => {
@@ -13,6 +17,11 @@ export const useModule = () => {
     [dispatch]
   );
 
+  const editModule = useCallback(
+    (payload, id, history) => dispatch(editModuleRequest(payload, id, history)),
+    [dispatch]
+  );
+
   const modules = useSelector(state => state.allModules.modules);
 
   const createSubSection = useCallback(
@@ -20,7 +29,7 @@ export const useModule = () => {
     [dispatch]
   );
 
-  return { createModule, modules, createSubSection };
+  return { createModule, modules, createSubSection, editModule };
 };
 
 

@@ -73,6 +73,29 @@ export function createSectionRequest(payload, history) {
   }
 }
 
+export const EDIT_MODULE_SUCCESS = 'EDIT_MODULE_SUCCESS';
+export function editModuleRequest(payload, id, history) {
+  const { editedModule } = payload;
+
+  return (dispatch) => {
+
+    return API.put(`/modules/${id}`, editedModule)
+      .then(
+        (response) => { 
+          const { active, _id, title, body, module, createdAt, updatedAt } = response.data.data;
+
+          dispatch({
+            type: EDIT_MODULE_SUCCESS,
+            payload: { active, _id, title, body, module, createdAt, updatedAt }
+          })
+          history.push('/admin');
+        },
+
+	      (error) => {}
+      )
+  }
+}
+
 export const FETCH_MODULES_SUCCESS = 'FETCH_MODULES_SUCCESS';
 export function fetchModules() {
   return (dispatch) => {

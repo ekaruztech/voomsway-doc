@@ -6,7 +6,7 @@ import { Form, Button, Container, Row, Col } from 'react-bootstrap';
 import 'react-mde/lib/styles/css/react-mde-all.css';
 import { useModule } from 'views/modules/moduleHooks';
 
-const EditModule = ({ title, history, ...props  }) => {
+const AddSection = ({ title, history, ...props  }) => {
   const [value, setValue] = useState('**Hello World!**');
   const [selectedTab, setSelectedTab] = useState("write");
   const [subTitle, setSubTitle] = useState('');
@@ -33,7 +33,6 @@ const EditModule = ({ title, history, ...props  }) => {
       body: value,
       module: props.match.params.id
     };
-    console.log(subSection)
     createSubSection({ subSection }, history);
   }
 
@@ -84,4 +83,4 @@ const EditModule = ({ title, history, ...props  }) => {
   );
 };
 
-export default withRouter(EditModule);
+export default withRouter(AddSection);

@@ -35,6 +35,14 @@ const API = {
       },
     });
   },
+
+  put(endpoint, body) {
+    return axios.put(`${this.url}${endpoint}`, body, {
+      headers: { 
+        'x-api-key': `${this.apiKey}`,
+      },
+    });
+  },
 };
 
 export default API;

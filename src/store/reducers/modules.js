@@ -3,6 +3,7 @@ import {
   MODULE_CREATION_SUCCESS,
   SECTION_CREATION_SUCCESS,
   FETCH_MODULES_SUCCESS,
+  EDIT_MODULE_SUCCESS,
 } from 'store/actions/modules';
 
 const initialState = {
@@ -53,6 +54,25 @@ export default (state = initialState, action) => {
                   updatedAt: action.sectionData.updatedAt,
                 }
               ] 
+            }
+          }
+          return module;
+        }),
+      };
+
+    case EDIT_MODULE_SUCCESS:
+      return {
+        ...state,
+        isLoading: false,
+        modules: state.modules.map(module => {
+          if (module._id === action.payload._id) {
+            return {
+              active: action.payload.active,
+              _id: action.payload._id,
+              title: action.payload.title,
+              body: action.payload.body,
+              createdAt: action.payload.createdAt,
+              updatedAt: action.payload.updatedAt,
             }
           }
           return module;

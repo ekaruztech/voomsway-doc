@@ -6,11 +6,12 @@ import { useLogin } from 'views/login/loginHooks';
 
 const Header = ({ location }) => {
   const { loginData } = useLogin();
+  const adminRoute = location.pathname.includes("/admin");
 
   return (
     <Fragment>
       <Navbar collapseOnSelect expand="lg" bg="dark" variant="dark" fixed="top">
-        <Navbar.Brand href="/" fixed="top">
+        <Navbar.Brand href={adminRoute ? "/admin" : "/"} fixed="top">
           <img
             src="https://voomsway.com/wp-content/uploads/2019/06/logo_alt.svg"
             className="d-inline-block align-top"
@@ -19,7 +20,7 @@ const Header = ({ location }) => {
         </Navbar.Brand>
 
         {
-          location.pathname.includes("/admin") &&
+          adminRoute &&
           <Fragment>
             <Navbar.Toggle aria-controls="responsive-navbar-nav" />
           
