@@ -85,3 +85,9 @@ td > a {
 .child-section {
   padding-left: 1.5rem;
 }
+
+.pagination-container {
+  display: flex;
+  justify-content: center;
+  padding-top: 2rem;
+}

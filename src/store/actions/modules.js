@@ -97,12 +97,18 @@ export function editModuleRequest(payload, id, history) {
 }
 
 export const FETCH_MODULES_SUCCESS = 'FETCH_MODULES_SUCCESS';
-export function fetchModules() {
+export function fetchModules(perPage, page) {
   return (dispatch) => {
-    return API.get('/modules')
+     dispatch({
+       type: 'MODULES_LOADING'
+     });
+    return API.get(`/modules?per_page=${perPage}&page=${page}`)
     .then(
-      (response) => { 
-        const payload = response.data.data;
+      (response) => {
+        const payload = {
+          modules: response.data.data,
+          pagination: response.data._meta.pagination
+        };
         dispatch({
           type: FETCH_MODULES_SUCCESS,
           payload,

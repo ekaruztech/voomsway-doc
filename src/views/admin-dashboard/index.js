@@ -3,11 +3,21 @@ import { withRouter, Link } from 'react-router-dom';
 import  {isLoggedIn } from 'services/isLoggedIn';
 import { Table, Badge, Button } from 'react-bootstrap';
 import { useModule } from 'views/modules/moduleHooks';
+import Paginate from 'components/pagination'
 
 
 const AdminDashboard = ({ title, requirePermission, history }) => {
   const isAuthorized = requirePermission && isLoggedIn();
-  const { modules } = useModule();
+  const { modules, pagination, getModules, modulesLoading } = useModule();
+  const { per_page, current, total_count } = pagination;
+
+  const handlePageClick = (perPage, page) => {
+    getModules(perPage, page);
+  }
+
+  if (modulesLoading) {
+    return <div>Loading...</div>
+  }
   
   return (
     <>  
@@ -36,7 +46,7 @@ const AdminDashboard = ({ title, requirePermission, history }) => {
                 {
                   modules.map((module, index) => (
                     <tr key={module._id}>
-                      <td>{index + 1}</td>
+                      <td>{(index + 1) + ((current - 1) * per_page)}</td>
                       <td>{module.title}</td>
                       <td>
                         <Badge variant="dark">
@@ -54,6 +64,15 @@ const AdminDashboard = ({ title, requirePermission, history }) => {
                 }
               </tbody>
             </Table>
+            {
+              total_count > per_page && 
+              <Paginate
+                active={current}
+                totalCount={total_count}
+                perPage={per_page}
+                handlePageClick={handlePageClick}
+              />
+            }
           </>
         :
           history.push('/admin/login')}

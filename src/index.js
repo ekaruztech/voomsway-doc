@@ -25,7 +25,7 @@ const isValidToken = (token) => {
 
 if (token && isValidToken(token)) {
   store.dispatch(getCurrentUser(localStorage.voomToken));
-  store.dispatch(fetchModules());
+  store.dispatch(fetchModules(10, 1));
 } else if (token && !isValidToken(token)) {
   localStorage.removeItem('voomToken');
 }
