@@ -1,9 +1,9 @@
 import NewModule from 'views/modules/new-module';
 
 export default {
-  title: 'Add New Module',
+  title: 'Edit Module',
   component: NewModule,
-  url: '/admin/new-module',
+  url: '/admin/modules/:id/edit',
   exact: true,
   requirePermission: true,
 };

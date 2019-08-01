@@ -9,6 +9,7 @@ import './index.css';
 import App from './App';
 import * as serviceWorker from './serviceWorker';
 import { getCurrentUser } from 'store/actions/login';
+import { fetchModules } from 'store/actions/modules';
 
 
 const store = configureStore();
@@ -24,6 +25,7 @@ const isValidToken = (token) => {
 
 if (token && isValidToken(token)) {
   store.dispatch(getCurrentUser(localStorage.voomToken));
+  store.dispatch(fetchModules());
 } else if (token && !isValidToken(token)) {
   localStorage.removeItem('voomToken');
 }

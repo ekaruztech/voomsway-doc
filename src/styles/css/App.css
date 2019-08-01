@@ -1,5 +1,5 @@
 .main {
-  padding: 1em;
+  padding-top: 4rem;
 }
 
 .login-container {
@@ -49,4 +49,39 @@
 
 .form-container {
   padding-top: 1em;
+}
+
+td > a {
+  padding-right: 1em;
+}
+
+#sidebar nav > a {
+  display: block;
+  padding-top: 1rem;
+}
+
+#sidebar {
+  padding: 1rem 0 2rem 2rem;
+  display: flex;
+  height: calc(100vh - 4rem);
+  width: 20%;
+  flex-direction: column;
+  background-color: beige;
+  position: sticky;
+  top: 4rem;
+}
+
+.sidebar-wrapper {
+	display: flex;
+	/* height: 100%; */
+}
+
+#content {
+  min-height: calc(100vh - 4rem);
+  flex-grow: 9;
+  padding: 2rem;
+}
+
+.child-section {
+  padding-left: 1.5rem;
 }
