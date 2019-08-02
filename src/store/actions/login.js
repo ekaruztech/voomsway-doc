@@ -65,3 +65,14 @@ export function getCurrentUser(token) {
       )
   }
 }
+
+export function logout(history) {
+  return (dispatch) => {
+    localStorage.removeItem('voomToken');
+    dispatch({
+      type: 'DELETE_CURRENT_USER',
+      user: {}
+    });
+    history.push('/admin');
+  };
+}

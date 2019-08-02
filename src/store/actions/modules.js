@@ -99,9 +99,9 @@ export function editModuleRequest(payload, id, history) {
 export const FETCH_MODULES_SUCCESS = 'FETCH_MODULES_SUCCESS';
 export function fetchModules(perPage, page) {
   return (dispatch) => {
-     dispatch({
-       type: 'MODULES_LOADING'
-     });
+    dispatch({
+      type: 'MODULES_LOADING'
+    });
     return API.get(`/modules?per_page=${perPage}&page=${page}`)
     .then(
       (response) => {
