@@ -1,5 +1,6 @@
 import React, { Fragment } from 'react';
 import { Link } from 'react-router-dom';
+import docSlug from 'services/docSlug';
 import SidebarContainer from 'components/sidebar-container';
 
 const Sidebar = ({ isLoading, modules, changeContent }) => {
@@ -8,8 +9,13 @@ const Sidebar = ({ isLoading, modules, changeContent }) => {
     <SidebarContainer>
         { !isLoading && modules.map(module => (
           <Fragment key={module._id}>
-            <Link
-              to={`/docs/${module.title.replace(/\W+/g, '-').toLowerCase()}`}
+            <Link 
+              to={{
+                pathname: `/docs/${docSlug(module.title)}`,
+                state: {
+                  moduleId: module._id
+                }
+              }}
               onClick={() => changeContent(module.title, module.body)}
               className='module-title'
             >
@@ -18,7 +24,7 @@ const Sidebar = ({ isLoading, modules, changeContent }) => {
 
             { module.children && module.children.map(section => (
               <Link 
-                to="#" 
+                to={`/docs/${docSlug(section.title)}`} 
                 key={section._id} 
                 className='child-section'
                 onClick={() => changeContent(section.title, section.body)}
