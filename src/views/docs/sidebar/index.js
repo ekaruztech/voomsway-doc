@@ -1,24 +1,22 @@
-import React, { useContext } from 'react';
+import React, { Fragment } from 'react';
 import { Link } from 'react-router-dom';
 import SidebarContainer from 'components/sidebar-container';
-import { ActiveModuleContext } from "views/modules/view-module";
 
-const AdminSidebar = ({ changeContent }) => {
-  const activeModule = useContext(ActiveModuleContext);
-  const { module, sections } = activeModule;
+const Sidebar = ({ isLoading, modules, changeContent }) => {
 
   return (
     <SidebarContainer>
-        { !module.isLoading && 
-          <>
-            <Link 
-              to={`/admin/modules/${module._id}/view`} 
+        { !isLoading && modules.map(module => (
+          <Fragment key={module._id}>
+            <Link
+              to={`/docs/${module.title.replace(/\W+/g, '-').toLowerCase()}`}
               onClick={() => changeContent(module.title, module.body)}
+              className='module-title'
             >
               {module.title}
             </Link> 
 
-            { sections && sections.map(section => (
+            { module.children && module.children.map(section => (
               <Link 
                 to="#" 
                 key={section._id} 
@@ -28,10 +26,11 @@ const AdminSidebar = ({ changeContent }) => {
                 {section.title}
               </Link> 
             ))}
-          </>
-        }
+          </Fragment>
+        ))
+      }
     </SidebarContainer>
   )
 }
 
-export default AdminSidebar;
+export default Sidebar;

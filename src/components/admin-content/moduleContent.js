@@ -8,7 +8,7 @@ const ModuleContent = ({ title, content }) => {
 
 
   return (
-    <section id='content'> 
+    <section className='content'> 
       <h3>{ !title ? activeModule.module.title : title  }</h3>
 
       <p dangerouslySetInnerHTML={ 

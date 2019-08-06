@@ -28,9 +28,9 @@ export const useModule = () => {
     [dispatch]
   );
 
-  const modulesLoading = useSelector(state => state.allModules.isLoading);
-  const modules = useSelector(state => state.allModules.modules);
-  const pagination = useSelector(state => state.allModules.pagination);
+  const modulesLoading = useSelector(state => state.paginatedModules.isLoading);
+  const modules = useSelector(state => state.paginatedModules.modules);
+  const pagination = useSelector(state => state.paginatedModules.pagination);
 
   const createSubSection = useCallback(
     (payload, history) => dispatch(createSectionRequest(payload, history)),

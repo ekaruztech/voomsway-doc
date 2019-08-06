@@ -16,7 +16,7 @@ const Header = ({ location, history }) => {
   return (
     <Fragment>
       <Navbar collapseOnSelect expand="lg" bg="dark" variant="dark" fixed="top">
-        <Navbar.Brand href={adminRoute ? "/admin" : "/"} fixed="top">
+        <Navbar.Brand href={adminRoute ? "/admin" : "/docs"} fixed="top">
           <img
             src="https://voomsway.com/wp-content/uploads/2019/06/logo_alt.svg"
             className="d-inline-block align-top"

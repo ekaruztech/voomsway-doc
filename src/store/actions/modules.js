@@ -116,4 +116,4 @@ export function fetchModules(perPage, page) {
       }
     )
   }
-}
+};
