@@ -36,7 +36,7 @@ export function userLoginRequest(userData, history) {
 
           localStorage.setItem('voomToken', token);
           dispatch(userLoginSuccess({ ...jwt.decode(token), isAdmin }))
-          history.push('/admin');
+          window.location.href = '/admin';
         },
 
 	      (error) => {

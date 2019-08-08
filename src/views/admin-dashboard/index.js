@@ -14,13 +14,21 @@ const AdminDashboard = ({ title, requirePermission, history }) => {
   }
 
   if (modulesLoading) {
-    return <div>Loading...</div>
+    return <div className="default-pad">Loading...</div>
+  }
+
+  if (modules.length === 0) {
+    return (
+      <div className="default-pad">
+        <h3>There is currently no documentation to display</h3>
+        <Link to="/admin/new-module">Click here to add</Link>
+      </div>
+    );
   }
   
   return (
     <>        
       <h3 className="inline-block">{title} Dashboard</h3>
-
       <div className="float-right add-module-btn">
         <Button variant="info" size="sm"
           onClick={() => history.push('/admin/new-module')}
@@ -51,7 +59,16 @@ const AdminDashboard = ({ title, requirePermission, history }) => {
                 </td>
                 <td>{module.active ? 'True' : 'False'}</td>
                 <td>
-                  <Link to={`/admin/modules/${module._id}/view`}>View</Link>
+                  <Link 
+                    to={{
+                      pathname: `/admin/modules/${module._id}/view`,
+                      state: {
+                        moduleId: module._id
+                      }
+                    }}
+                  >
+                    View
+                  </Link>
                   <Link to={`/admin/modules/${module._id}/edit`}>Edit</Link>
                   <Link to={`/admin/modules/${module._id}/section`}>Add Section</Link>
                 </td>

@@ -25,31 +25,31 @@ class Docs extends React.Component {
         const activeDocTitle = this.props.match.params.title;
         var activeDoc;
 
-        if (activeDocTitle) {
-          modules.map(module => {
-            let docMatch = (docSlug(module.title) === activeDocTitle);
-
-            if (docMatch) {
-              return activeDoc = [ module ];
-            } else {
-              const sectionMatch = module.children.filter(child => (
-                docSlug(child.title).includes(activeDocTitle)
-              ));
-
-              if (!(sectionMatch.length === 0)) {
-                return activeDoc = sectionMatch;
-              }
-            }
-          });
-          return this.setState({
-            title: activeDoc[0].title,
-            content: activeDoc[0].body,
-          });
+        if(initialDocs && !activeDocTitle) {
+          this.props.history.push(
+            `/docs/${docSlug(initialDocs.title)}`
+          );
         } else {
-          if(initialDocs) {
-            this.props.history.push(
-              `/docs/${docSlug(initialDocs.title)}`
-            );
+          if (activeDocTitle) {
+            modules.map(module => {
+              let docMatch = (docSlug(module.title) === activeDocTitle);
+  
+              if (docMatch) {
+                return activeDoc = [ module ];
+              } else {
+                const sectionMatch = module.children.filter(child => (
+                  docSlug(child.title).includes(activeDocTitle)
+                ));
+  
+                if (!(sectionMatch.length === 0)) {
+                  return activeDoc = sectionMatch;
+                }
+              }
+            });
+            return this.setState({
+              title: activeDoc[0].title,
+              content: activeDoc[0].body,
+            });
           }
         }
       }
@@ -68,11 +68,15 @@ class Docs extends React.Component {
     const mdConverter = new showdown.Converter();
 
     if (isLoading) {
-      return <div>Loading...</div>
+      return <div className="default-pad">Loading...</div>
+    }
+
+    if (modules.length === 0) {
+      return <h3 className="default-pad">There is currently no available documentation</h3>
     }
 
     return (
-      <div className='sidebar-wrapper'>
+      <div className='module-parent'>
         <Sidebar
           isLoading={isLoading}
           modules={modules}

@@ -25,6 +25,7 @@ export function allModulesFailure(error) {
 
 export function allModulesRequest() {
   return async (dispatch) => {
+    dispatch(allModulesLoading());
     try {
       const modules = await API.get('/modules?all=true');
       const sections = await API.get('/sections?all=true');
@@ -43,4 +44,5 @@ export function allModulesRequest() {
 
     }
   };
-}
+};
+
