@@ -6,6 +6,7 @@ import {
   createModuleRequest, 
   createSectionRequest, 
   editModuleRequest,
+  editSectionRequest,
   fetchModules,
 } from 'store/actions/modules';
 
@@ -28,6 +29,11 @@ export const useModule = () => {
     [dispatch]
   );
 
+  const editSection = useCallback(
+    (payload, id, history) => dispatch(editSectionRequest(payload, id, history)),
+    [dispatch]
+  );
+
   const modulesLoading = useSelector(state => state.paginatedModules.isLoading);
   const modules = useSelector(state => state.paginatedModules.modules);
   const pagination = useSelector(state => state.paginatedModules.pagination);
@@ -45,6 +51,7 @@ export const useModule = () => {
     pagination,
     getModules,
     modulesLoading,
+    editSection,
   };
 };
 
@@ -77,4 +84,5 @@ export const useActiveModule = (id) => {
   }, []);
 
   return [state];
-}
+};
+

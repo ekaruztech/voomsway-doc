@@ -96,6 +96,24 @@ export function editModuleRequest(payload, id, history) {
   }
 }
 
+export function editSectionRequest(payload, id, history) {
+  const { editedSection } = payload;
+
+  return (dispatch) => {
+
+    return API.put(`/sections/${id}`, editedSection)
+      .then(
+        (response) => { 
+          const { module } = response.data.data;
+
+          history.push(`/admin/modules/${module}/view`);
+        },
+
+	      (error) => {}
+      )
+  }
+}
+
 export const FETCH_MODULES_SUCCESS = 'FETCH_MODULES_SUCCESS';
 export function fetchModules(perPage, page) {
   return (dispatch) => {

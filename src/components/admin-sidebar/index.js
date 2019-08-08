@@ -12,7 +12,13 @@ const AdminSidebar = ({ changeContent }) => {
         { !module.isLoading && 
           <>
             <Link 
-              to={`/admin/modules/${module._id}/view`} 
+              to={{
+                pathname: `/admin/modules/${module._id}/view`,
+                state: {
+                  moduleId: module._id,
+                  type: 'module',
+                }
+              }}
               onClick={() => changeContent(module.title, module.body)}
             >
               {module.title}
@@ -20,7 +26,15 @@ const AdminSidebar = ({ changeContent }) => {
 
             { sections && sections.map(section => (
               <Link 
-                to="#" 
+                to={{
+                  pathname: `/admin/modules/${module._id}/view`,
+                  state: {
+                    moduleId: section._id,
+                    type: 'section',
+                    sectionTitle: section.title,
+                    sectionBody: section.body,
+                  }
+                }}
                 key={section._id} 
                 className='child-section'
                 onClick={() => changeContent(section.title, section.body)}

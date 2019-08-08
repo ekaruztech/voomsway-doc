@@ -7,8 +7,9 @@ import { useModule } from 'views/modules/moduleHooks';
 
 const ModuleForm = (props) => {
   const { modules } = useModule();
-  const module = modules.find(module => module._id === props.editPageId)
-  const [moduleTitle, setModuleTitle] = useState(module ? module.title : '');
+  const module = modules.find(module => module._id === props.editPageId) || 
+                 { title: props.sectionTitle, body: props.sectionBody };
+  const [title, setTitle] = useState(module ? module.title : '');
   const [value, setValue] = useState( module ? module.body : '**Hello World!**');
   const [selectedTab, setSelectedTab] = useState("write");
 
@@ -24,7 +25,7 @@ const ModuleForm = (props) => {
   );
 
   const handleModuleTitleChange = event => (
-    setModuleTitle(event.target.value)
+    setTitle(event.target.value)
   );
 
   return(
@@ -39,8 +40,8 @@ const ModuleForm = (props) => {
                 <Form.Label>Title</Form.Label>
                 <Form.Control 
                   type="text" 
-                  placeholder="Module Title"
-                  value={moduleTitle}
+                  placeholder={`${props.type} Title`}
+                  value={title}
                   onChange={handleModuleTitleChange}
                 />
               </Form.Group>
@@ -55,6 +56,11 @@ const ModuleForm = (props) => {
                   generateMarkdownPreview={markdown =>
                     Promise.resolve(converter.makeHtml(markdown))
                   }
+                  textAreaProps={{
+                    style: {
+                      height: '55vh'
+                    }
+                  }}
                 />
               </Form.Group>
             </div>
@@ -63,7 +69,7 @@ const ModuleForm = (props) => {
             <Button
               block
               variant="success"
-              onClick={() => props.submitChange(moduleTitle, value)}
+              onClick={() => props.submitChange(title, value)}
             > 
               Submit
             </Button>
