@@ -36,7 +36,7 @@ export function userLoginRequest(userData, history) {
 
           localStorage.setItem('voomToken', token);
           dispatch(userLoginSuccess({ ...jwt.decode(token), isAdmin }))
-          history.push('/admin');
+          window.location.href = '/admin';
         },
 
 	      (error) => {
@@ -64,4 +64,15 @@ export function getCurrentUser(token) {
         }
       )
   }
+}
+
+export function logout(history) {
+  return (dispatch) => {
+    localStorage.removeItem('voomToken');
+    dispatch({
+      type: 'DELETE_CURRENT_USER',
+      user: {}
+    });
+    history.push('/admin');
+  };
 }

@@ -26,6 +26,7 @@ const NewModule = ({ title, history, ...props }) => {
 
   return (
     <ModuleForm
+      type='Module'
       title={editPageId ? 'Edit Module' : 'Add New Module'}
       submitChange={handleModuleSubmit}
       editPageId={editPageId}

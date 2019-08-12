@@ -8,7 +8,8 @@ import {
 
 const initialState = {
   isLoading: false,
-  modules: []
+  modules: [],
+  pagination: {}
 };
 
 export default (state = initialState, action) => {
@@ -78,15 +79,21 @@ export default (state = initialState, action) => {
           return module;
         }),
       };
+    
+    case 'MODULES_LOADING':
+      return {
+        ...state,
+        isLoading: true,
+      };
 
     case FETCH_MODULES_SUCCESS:
       return {
         ...state,
         isLoading: false,
         modules: [
-          ...state.modules,
-          ...action.payload
-        ]
+          ...action.payload.modules
+        ],
+        pagination: action.payload.pagination,
       }
   
     default:

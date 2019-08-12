@@ -10,6 +10,7 @@ const ViewModule = (props) => {
   const [state] = useActiveModule(props.match.params.id);
   const [title, setTitle] = useState('');
   const [content, setContent] = useState('');
+  const linkState = props.location.state;
 
   const handleContentChange = (title, content) => {
     setTitle(title);
@@ -26,10 +27,17 @@ const ViewModule = (props) => {
       module: state.module,
       sections: state.module.sections,
     }}>
-      <div className='sidebar-wrapper'>
+      <div className='module-parent'>
         <Sidebar changeContent={handleContentChange} />
 
-        <ModuleContent content={content} title={title} />
+        <ModuleContent 
+          title={title}
+          content={content}
+          contentType={linkState && linkState.type}
+          moduleId={linkState && linkState.moduleId}
+          sectionTitle={linkState && linkState.sectionTitle}
+          sectionBody={linkState && linkState.sectionBody}
+        />
       </div>
     </ActiveModuleContext.Provider>
   );

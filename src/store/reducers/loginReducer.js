@@ -43,6 +43,14 @@ export default (state = initialState, action) => {
           user: action.user,
         }
     
+      case 'DELETE_CURRENT_USER':
+      return {
+        ...state,
+        isAuthenticated: false,
+        isLoading: false,
+        user: action.user,
+      }
+
     default:
         return state;
   };

@@ -1,17 +1,22 @@
 import React, { Fragment } from 'react';
 import { withRouter } from 'react-router-dom';
 import { Nav, Navbar } from 'react-bootstrap';
+import {isLoggedIn } from 'services/isLoggedIn';
 import { useLogin } from 'views/login/loginHooks';
 
 
-const Header = ({ location }) => {
-  const { loginData } = useLogin();
+const Header = ({ location, history }) => {
   const adminRoute = location.pathname.includes("/admin");
+  const { logoutUser } = useLogin();
+
+  const logout = () => {
+    logoutUser(history);
+  }
 
   return (
     <Fragment>
       <Navbar collapseOnSelect expand="lg" bg="dark" variant="dark" fixed="top">
-        <Navbar.Brand href={adminRoute ? "/admin" : "/"} fixed="top">
+        <Navbar.Brand href={adminRoute ? "/admin" : "/docs"} fixed="top">
           <img
             src="https://voomsway.com/wp-content/uploads/2019/06/logo_alt.svg"
             className="d-inline-block align-top"
@@ -26,11 +31,11 @@ const Header = ({ location }) => {
           
             <Navbar.Collapse id="responsive-navbar-nav">
               <Nav className="ml-auto">
-                { !loginData.isAuthenticated && 
+                { !isLoggedIn && 
                   <Nav.Link href="/admin/login">Log In</Nav.Link> 
                 }
-                { loginData.isAuthenticated && 
-                  <Nav.Link href="#">Log Out</Nav.Link>
+                { isLoggedIn && 
+                  <Nav.Link href="#" onClick={logout}>Log Out</Nav.Link>
                 }
               </Nav>
             </Navbar.Collapse>      

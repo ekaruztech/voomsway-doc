@@ -96,13 +96,37 @@ export function editModuleRequest(payload, id, history) {
   }
 }
 
-export const FETCH_MODULES_SUCCESS = 'FETCH_MODULES_SUCCESS';
-export function fetchModules() {
+export function editSectionRequest(payload, id, history) {
+  const { editedSection } = payload;
+
   return (dispatch) => {
-    return API.get('/modules')
+
+    return API.put(`/sections/${id}`, editedSection)
+      .then(
+        (response) => { 
+          const { module } = response.data.data;
+
+          history.push(`/admin/modules/${module}/view`);
+        },
+
+	      (error) => {}
+      )
+  }
+}
+
+export const FETCH_MODULES_SUCCESS = 'FETCH_MODULES_SUCCESS';
+export function fetchModules(perPage, page) {
+  return (dispatch) => {
+    dispatch({
+      type: 'MODULES_LOADING'
+    });
+    return API.get(`/modules?per_page=${perPage}&page=${page}`)
     .then(
-      (response) => { 
-        const payload = response.data.data;
+      (response) => {
+        const payload = {
+          modules: response.data.data,
+          pagination: response.data._meta.pagination
+        };
         dispatch({
           type: FETCH_MODULES_SUCCESS,
           payload,
@@ -110,4 +134,4 @@ export function fetchModules() {
       }
     )
   }
-}
+};
